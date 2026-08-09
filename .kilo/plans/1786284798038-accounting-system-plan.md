@@ -6,7 +6,7 @@ This plan outlines the phased implementation of a multi-platform accounting syst
 ## Execution Phases
 1. **Core Architecture (Weeks 1-2)**
    - Implement FastAPI backend with 6-level accounting schema
-   - Develop PostgreSQL database with TimescaleDB caching
+   - Develop PostgreSQL database with Redis caching
    - Build core voucher API endpoints (V1)
 
 2. **Platform Development (Weeks 3-6)**
@@ -15,32 +15,39 @@ This plan outlines the phased implementation of a multi-platform accounting syst
    - Develop mobile app UI (React Native)
 
 3. **Core Functionality (Weeks 7-12)**
-   - Implement approval workflow engine (based on BPMN workflows.md)
-   - Build multi-currency exchange management (USD/EUR/AED)
-   - Develop journal entry validation engine (debit=credit checks)
+   - Implement approval workflow engine
+   - Build multi-currency exchange management
+   - Develop journal validation engine
 
 4. **Advanced Features (Weeks 13-16)**
-   - Complete reporting engine (balance sheets, profit/loss, aging reports)
-   - Implement audit logging system (with immutable records)
-   - Develop backup/recovery mechanism (daily PostgreSQL dumps)
+   - Complete reporting engine
+   - Implement audit logging system
+   - Develop backup/recovery mechanism
 
 5. **Polish & Deployment (Weeks 17-18)**
-   - Add RTL interface polishing (Vazirmatn font, Persian numerals)
+   - Add RTL interface polishing
    - Prepare Dockerfiles for containerization
    - Conduct security audit and penetration testing
 
 ## Key Decisions
-- Database cache: PostgreSQL TimescaleDB (rejected Redis after ERD analysis)
-- Deployment: Self-hosted servers (rejected Heroku - need enterprise control)
-- UI Layer: Shared React codebase for web/Electron, React Native for mobile
+- Database cache: Redis (rejected PostgreSQL TimescaleDB)
+- Database migrations: Alembic (rejected Prisma Migrate)
+- Testing: 85% coverage threshold (unit, integration, e2e)
+- CI/CD: GitHub Actions with npm lint/typecheck/test pipeline
+- Deployment targets: Linux servers with PostgreSQL (rejected Heroku)
+- API versioning: Path-based (/v1/) with OpenAPI 3.0 spec
+- Authentication: JWT + RBAC with audit-logged permissions
+- Frontend framework: React 18 + TypeScript + Material-ui
+- File storage: Local path-based with encrypted filename obfuscation
+- Encryption: AES-256-GCM with per-account keys
 
 ## Validation Steps
-1. Execute sample voucher cycle with edge cases (large amounts, special characters)
-2. Test level-3 approval immutability (voucher locking mechanism)
+1. Execute sample voucher cycle with edge cases
+2. Test level-3 approval immutability
 3. Validate Persian RTL rendering in all interfaces
 4. Confirm compliance with Iranian Accounting Standards 168 & 169
 
-## Open Questions
-- Should we implement WebAssembly? (Low priority - for performance critical operations)
-- Should we add A/B testing? (Mid priority - for UI optimization)
-- Should deployment use Kubernetes? (Low priority - for scaling)
+[Open Questions]
+- Should we implement WebAssembly? (Low priority)
+- Should we add A/B testing? (Mid priority)
+- Should deployment use Kubernetes? (Low priority)

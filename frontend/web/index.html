@@ -2,137 +2,139 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>سیستم حسابدار ایرانی</title>
+    <title>سیستم حسابدار سه‌درجه Accounting System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap");
-        * {
-            font-family: "Vazirmatn", sans-serif;
-            direction: rtl;
-            text-align: right;
-        }
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-        body.dark-mode {
-            background-color: #212529;
-            color: #f8f9fa;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .navbar {
-            background-color: #343a40;
-            color: white;
-            padding: 15px 20px;
-            text-align: center;
-        }
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 10px 0;
-        }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .nav-links a:hover {
-            background-color: #adjacent-hijri: 
-        }
-        .content {
-            padding: 20px 0;
-        }
-        .btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 10px auto;
-        }
-        .btn:hover {
-            background-color: #2980b9;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #f1f1f1;
-            border-top: 1px solid #dee2e6;
-            margin-top: 30px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/main.js" defer></script>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-links">
-            <a href="#" onclick="showSection(
-dashboard)">ک nos</a>
-            <a href="#" onclick="showSection(vouchers)">اساتير</a>
-            <a href="#" onclick="showSection(reports)">گزاريندها</a>
-            <a href="#" onclick="showSection(settings)">تنظیمات</a>
+            <a href="#" onclick="showSection('dashboard')">پروژه</a>
+            <a href="#" onclick="showSection('vouchers')">واتیر</a>
+            <a href="#" onclick="showSection('reports')">گزارش</a>
+            <a href="#" onclick="showSection('settings')">تنظیمات</a>
         </div>
     </nav>
     
-    <div id="main-content" class="content" style="display:none;">
-        <div id="dashboard-section">
-            <h1>صفحه اصلی</h1>
-            <p>صفحه اصلی سیستم حسابداري 3-4</p>
-            <button class="btn" onclick="window.location.href=/">بازگشت به naïve</button>
-        </div>
-        <div id="vouchers-section" style="display:none;">
-            <h1>اتوراته</h1>
-            <table border="1" cellpadding="10" style="width:100%; border-collapse: collapse; direction: rtl; text-align: middle;">
-                <tr>
-                    <th>شماره وقلاب</th>
-                    <th>تاريخ</th>
-                    <th>شرح</th>
-                    <th>بélyه</th>
-                    <th>وضعيت</th>
-                </tr>
-                <tr>
-                    <td>1001</td>
-                    <td>1403/03/20</td>
-                    <td>مبيع ک_MODIFIER</td>
-                    <td>1,000,000</td>
-                    <td>اعتماد و اجرا شده</td>
-                </tr>
-            </table>
-            <button class="btn" onclick="window.history.back()">بَرَر Dissociate</button>
-        </div>
-        <div id="settings-section" style="display:none;">
-            <h1>تنظيمات</h1>
-            <p>تنظیمات سیستم در حال تکمیل</p>
-            <button class="btn" onclick="showSection(dashboard)">بَرَر Dissociate</button>
-        </div>
+    <div id="main-content" class="content-section" style="display:block;">
+        <section id="dashboard-section" class="content-section active">
+            <div class="container">
+                <div id="stats-container"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Welcome to the Accounting System</span>
+                    </div>
+                    <div class="card-content">
+                        <p>سیستم حسابدار سه‌درجه Accounting System is designed for Iranian SMEs.</p>
+                        <button class="btn btn-primary" onclick="createSampleAccount()">Create Sample Account</button>
+                        <button class="btn btn-primary" onclick="createSampleJournalEntry()">Create Sample Voucher</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="vouchers-section" class="content-section" style="display:none;">
+            <div class="container">
+                <div class="card-header"><span>Journal Entries</span></div>
+                <table class="table">
+                    <thead><tr><th>Voucher No.</th><th>Date</th><th>Description</th><th>Credit</th><th>Debit</th><th>Status</th></tr></thead>
+                    <tbody id="entries-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="reports-section" class="content-section" style="display:none;">
+            <div class="container">
+                <div id="report-content"></div>
+                <div class="chart-container"><div id="balance-chart" class="chart"></div></div>
+            </div>
+        </section>
+        
+        <section id="settings-section" class="content-section" style="display:none;">
+            <div class="container">
+                <div class="card-header"><span>Settings</span></div>
+                <div class="content-section">
+                    <div class="card"><div class="card-content"><p>Current settings are being loaded...</p></div></div>
+                </div>
+            </div>
+        </section>
     </div>
     
-    <div id="footer-section" class="footer">
-        <p>نسخه 1.0.0 |Accounting(Systems for Iranian SMEs)</p>
-        <p>© 2026 نظام حسابداري نامهٔ سه‌درجه</p>
+    <div class="footer">
+        <p>Version 1.0.0 | Accounting System for Iranian SMEs</p>
+        <p>© 2026 Accounting System</p>
     </div>
-
+    
     <script>
-        function showSection(sectionId) {
-            const content = document.getElementById(main-content);
-            const sections = content.querySelectorAll(div[id^=section-]);
-            sections.forEach(s => s.style.display = none);
-            if (content.querySelector(`#${sectionId}`)) {
-                content.querySelector(`#${sectionId}`).style.display = block;
+        const API_BASE = 'http://localhost:8000';
+
+        async function loadDashboardStats() {
+            try {
+                const response = await fetch(API_BASE + '/dashboard/stats');
+                const data = await response.json();
+                document.getElementById('stats-container').innerHTML = `
+                    <div class="stat-card"><h3>Total Vouchers</h3><p>${data.total_vouchers}</p></div>
+                    <div class="stat-card"><h3>Accounts</h3><p>${data.total_accounts}</p></div>
+                    <div class="stat-card"><h3>Net Balance</h3><p>${data.net_balance}</p></div>
+                `;
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        async function createSampleAccount() {
+            try {
+                const response = await fetch(API_BASE + '/accounts/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        code: '1101',
+                        name_fa: 'ویژه',
+                        name_en: 'Special',
+                        level: 1,
+                        account_type: 'T',
+                        normal_balance: 'D'
+                    })
+                });
+                const result = await response.json();
+                alert('Account created: ' + result.id);
+                loadAccounts();
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        async function createSampleJournalEntry() {
+            try {
+                const response = await fetch(API_BASE + '/vouchers/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        voucher_no: '001',
+                        voucher_type: 'N',
+                        period: '1403-01',
+                        voucher_date: new Date().toISOString(),
+                        rows: [{ account_id: 1, debit: 1000, credit: 0, description: 'Sample', counterparty: '' }],
+                        description: 'Sample voucher',
+                        reference: 'Sample Reference'
+                    })
+                });
+                const result = await response.json();
+                alert('Journal entry created: ' + result.id);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        function showSection(sectionName) {
+            document.querySelectorAll('.content-section').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+            document.querySelectorAll('section').forEach(s => { s.style.display = 'none'; });
+            var section = document.getElementById(sectionName + '-section');
+            if (section) {
+                section.classList.add('active');
+                section.style.display = 'block';
             }
         }
     </script>
